@@ -5,6 +5,7 @@ node_modules/
 *.log
 *.sqlite
 *.sqlite3
+*.http
 
 # Bỏ qua các tệp được tạo bởi hệ thống (thư mục .DS_Store trên macOS)
 .DS_Store
