@@ -1,0 +1,23 @@
+# Bỏ qua thư mục node_modules/ (chứa các phụ thuộc của dự án)
+node_modules/
+
+# Bỏ qua tệp log và dữ liệu tạm thời
+*.log
+*.sqlite
+*.sqlite3
+
+# Bỏ qua các tệp được tạo bởi hệ thống (thư mục .DS_Store trên macOS)
+.DS_Store
+
+# Bỏ qua các tệp cài đặt cụ thể (thường là tệp .env)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Bỏ qua tệp cài đặt của Visual Studio Code (thư mục .vscode)
+.vscode/
+
+# Bỏ qua các tệp cài đặt của IDE WebStorm (thư mục .idea)
+.idea/
