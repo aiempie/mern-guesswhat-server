@@ -4,7 +4,7 @@ const User = require("../../models/user/User");
 const generateJWT = require("../../helpers/jwt");
 
 const createUser = async (req, res = response) => {
-  let { username, password, email, fullname } = req.body;
+  let { username, password, email, fullname, image } = req.body;
   // check validate
   if (!username || !password) {
     return res.status(400).json({
@@ -31,7 +31,7 @@ const createUser = async (req, res = response) => {
     // encrypt password
     const salt = bcrypt.genSaltSync();
     const hashPass = bcrypt.hashSync(password, salt);
-    const newUser = new User({ username, password: hashPass, email, fullname });
+    const newUser = new User({ username, password: hashPass, email, fullname, image });
     //save user
     await newUser.save();
 

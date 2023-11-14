@@ -7,7 +7,7 @@ const loadUser = require("../../controllers/auth/loadUser");
 const router = express.Router();
 
 router.post("/register", createUser);
-router.get("/login", loginUser);
-router.get("loaduser", verifyToken, loadUser);
+router.post("/login", loginUser);
+router.get("/loaduser", verifyToken, loadUser);
 
 module.exports = router;
