@@ -1,14 +1,19 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const AovScoreSchema = new Schema({
-  user_id: {
-    type: Schema.Types.ObjectId,
-    ref: "users",
+const AovClipSchema = new Schema({
+  clip_id: {
+    type: String,
+    require: true,
+    unique: true,
   },
-  score: {
-    type: Number,
-    default: 0,
+  rank_id: {
+    type: Schema.Types.ObjectId,
+    ref: "aov_rank",
+  },
+  image: {
+    type: String,
+    require: true,
   },
   createAt: {
     type: Date,
@@ -23,4 +28,4 @@ const AovScoreSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("users", AovScoreSchema);
+module.exports = mongoose.model("aov_clip", AovClipSchema);
