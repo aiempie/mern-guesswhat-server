@@ -19,13 +19,6 @@ const AovRankSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  updateBy: {
-    type: String,
-  },
-  updateAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
 module.exports = mongoose.model("aov_rank", AovRankSchema);
