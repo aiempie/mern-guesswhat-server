@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const paginate = require("mongoose-paginate-v2");
 
 const AovClipSchema = new Schema({
   clip_id: {
@@ -11,21 +12,15 @@ const AovClipSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "aov_rank",
   },
-  image: {
+  owner: {
     type: String,
-    require: true,
   },
   createAt: {
     type: Date,
     default: Date.now,
   },
-  updateBy: {
-    type: String,
-  },
-  updateAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
+
+AovClipSchema.plugin(paginate);
 
 module.exports = mongoose.model("aov_clip", AovClipSchema);
