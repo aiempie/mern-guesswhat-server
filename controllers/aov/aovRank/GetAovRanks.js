@@ -3,7 +3,7 @@ const AovRank = require("../../../models/aov/AovRank");
 
 const getAllAovRank = async (req, res = response) => {
   try {
-    const ranks = await AovRank.find();
+    const ranks = await AovRank.find().sort({ rankLevel: 1 });
 
     res.json({
       success: true,

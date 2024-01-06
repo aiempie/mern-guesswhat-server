@@ -10,6 +10,12 @@ const AovScoreSchema = new Schema({
     type: Number,
     default: 0,
   },
+  finishClips: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "aov_clip",
+    },
+  ],
   createAt: {
     type: Date,
     default: Date.now,
