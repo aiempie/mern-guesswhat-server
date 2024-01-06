@@ -31,7 +31,14 @@ const createUser = async (req, res = response) => {
     // encrypt password
     const salt = bcrypt.genSaltSync();
     const hashPass = bcrypt.hashSync(password, salt);
-    const newUser = new User({ username, password: hashPass, email, fullname, image });
+    const newUser = new User({
+      username,
+      password: hashPass,
+      email,
+      fullname,
+      image,
+      playCount: 20,
+    });
     //save user
     await newUser.save();
 

@@ -22,6 +22,9 @@ const UserSchema = new Schema({
   image: {
     type: String,
   },
+  playCount: {
+    type: Number,
+  },
   role: {
     type: String,
     enum: ["ADMIN", "MOD", "USER"],
