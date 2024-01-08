@@ -17,4 +17,21 @@ const updatePlayCount = async (_id, newPlayCount) => {
   }
 };
 
-module.exports = updatePlayCount;
+const updatePlayTime = async (_id, newPlayTime) => {
+  try {
+    const updatedTimesUser = await User.findByIdAndUpdate(
+      _id,
+      { $inc: { playTime: newPlayTime } },
+      { new: true },
+    );
+    if (updatedTimesUser) {
+      return updatedTimesUser;
+    } else {
+      throw new Error("Không tìm thấy user với id " + _id);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { updatePlayCount, updatePlayTime };

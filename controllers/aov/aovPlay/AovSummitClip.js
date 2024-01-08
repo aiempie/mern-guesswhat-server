@@ -4,7 +4,7 @@ const AovRank = require("../../../models/aov/AovRank");
 const AovUserScore = require("../../../models/aov/AovUserScore");
 
 const { updateAovScore } = require("../../../utils/updateGameScore");
-const updatePlayCount = require("../../../utils/updatePlayCount");
+const { updatePlayCount, updatePlayTime } = require("../../../utils/updatePlayCount");
 
 const aovSummitClip = async (req, res = response) => {
   try {
@@ -52,6 +52,7 @@ const aovSummitClip = async (req, res = response) => {
     // Cập nhật số lượt chơi và trả kết quả
     updateAovScore(req.user._id, plusScore);
     updatePlayCount(req.user._id, req.user.playCount - 1);
+    updatePlayTime(req.user._id, 1);
 
     return res.json({
       success: true,

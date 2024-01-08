@@ -25,6 +25,10 @@ const UserSchema = new Schema({
   playCount: {
     type: Number,
   },
+  playTime: {
+    type: Number,
+    default: 0,
+  },
   role: {
     type: String,
     enum: ["ADMIN", "MOD", "USER"],
