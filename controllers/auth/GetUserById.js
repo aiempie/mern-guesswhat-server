@@ -1,6 +1,7 @@
 const { response } = require("express");
 const User = require("../../models/user/User");
 const AovUserScore = require("../../models/aov/AovUserScore");
+const LolUserScore = require("../../models/lol/LolUserScore");
 
 const getUserById = async (req, res = response) => {
   try {
@@ -22,6 +23,10 @@ const getUserById = async (req, res = response) => {
     const aovUserScore = await AovUserScore.findOne({ user_id: userId }).select("-finishClips");
     if (aovUserScore) {
       result.aovScore = aovUserScore;
+    }
+    const lolUserScore = await LolUserScore.findOne({ user_id: userId }).select("-finishClips");
+    if (lolUserScore) {
+      result.lolScore = lolUserScore;
     }
 
     res.json(result);
