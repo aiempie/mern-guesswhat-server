@@ -10,7 +10,7 @@ const aovTopScore = async (req, res = response) => {
       const listUser = await Promise.all(
         topScores.map(async (item) => {
           const user = await User.findById(item.user_id);
-          return { score: item.score, name: user.fullname, image: user.image };
+          return { score: item.score, name: user.fullname, image: user.image, _id: item.user_id };
         }),
       );
       res.json({
