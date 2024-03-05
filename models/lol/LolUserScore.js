@@ -16,6 +16,12 @@ const LolScoreSchema = new Schema({
       ref: "lol_clip",
     },
   ],
+  finishQuizs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "lol_quiz",
+    },
+  ],
   createAt: {
     type: Date,
     default: Date.now,

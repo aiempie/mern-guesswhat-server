@@ -1,12 +1,12 @@
 const { response } = require("express");
-const AovClip = require("../../../models/aov/AovClip");
-const AovRank = require("../../../models/aov/AovRank");
-const AovUserScore = require("../../../models/aov/AovUserScore");
+const LolClip = require("../../../models/lol/LolClip");
+const LolRank = require("../../../models/lol/LolRank");
+const LolUserScore = require("../../../models/lol/LolUserScore");
 
-const { updateAovScore } = require("../../../utils/updateGameScore");
+const { updateLolScore } = require("../../../utils/updateGameScore");
 const { updatePlayCount, updatePlayTime } = require("../../../utils/updatePlayCount");
 
-const aovSummitClip = async (req, res = response) => {
+const lolSubmitClip = async (req, res = response) => {
   try {
     let { clip_id, level } = req.body;
 
@@ -18,14 +18,14 @@ const aovSummitClip = async (req, res = response) => {
       });
     }
 
-    const Clip = await AovClip.findOne({ _id: clip_id });
+    const Clip = await LolClip.findOne({ _id: clip_id });
     if (!Clip) {
       return res.status(403).json({
         success: false,
         message: "Không tìm thấy clip",
       });
     }
-    const rankClip = await AovRank.findOne({
+    const rankClip = await LolRank.findOne({
       _id: Clip.rank_id,
     });
 
@@ -40,7 +40,7 @@ const aovSummitClip = async (req, res = response) => {
 
     // Thêm clip_id vào finishClips
     if (plusScore) {
-      await AovUserScore.findOneAndUpdate(
+      await LolUserScore.findOneAndUpdate(
         { user_id: req.user._id },
         {
           $push: { finishClips: clip_id },
@@ -50,7 +50,7 @@ const aovSummitClip = async (req, res = response) => {
     }
 
     // Cập nhật số lượt chơi và trả kết quả
-    updateAovScore(req.user._id, plusScore);
+    updateLolScore(req.user._id, plusScore);
     updatePlayCount(req.user._id, req.user.playCount - 1);
     updatePlayTime(req.user._id, 1);
 
@@ -58,7 +58,6 @@ const aovSummitClip = async (req, res = response) => {
       success: true,
       plusScore,
       message: getMessage(plusScore),
-      rankClip,
     });
   } catch (error) {
     console.error(error);
@@ -79,4 +78,4 @@ const getMessage = (plusScore) => {
   }
 };
 
-module.exports = aovSummitClip;
+module.exports = lolSubmitClip;

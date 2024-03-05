@@ -1,12 +1,12 @@
 const { response } = require("express");
-const LolClip = require("../../../models/lol/LolClip");
-const LolRank = require("../../../models/lol/LolRank");
-const LolUserScore = require("../../../models/lol/LolUserScore");
+const AovClip = require("../../../models/aov/AovClip");
+const AovRank = require("../../../models/aov/AovRank");
+const AovUserScore = require("../../../models/aov/AovUserScore");
 
-const { updateLolScore } = require("../../../utils/updateGameScore");
+const { updateAovScore } = require("../../../utils/updateGameScore");
 const { updatePlayCount, updatePlayTime } = require("../../../utils/updatePlayCount");
 
-const lolSummitClip = async (req, res = response) => {
+const aovSubmitClip = async (req, res = response) => {
   try {
     let { clip_id, level } = req.body;
 
@@ -18,14 +18,14 @@ const lolSummitClip = async (req, res = response) => {
       });
     }
 
-    const Clip = await LolClip.findOne({ _id: clip_id });
+    const Clip = await AovClip.findOne({ _id: clip_id });
     if (!Clip) {
       return res.status(403).json({
         success: false,
         message: "Không tìm thấy clip",
       });
     }
-    const rankClip = await LolRank.findOne({
+    const rankClip = await AovRank.findOne({
       _id: Clip.rank_id,
     });
 
@@ -40,7 +40,7 @@ const lolSummitClip = async (req, res = response) => {
 
     // Thêm clip_id vào finishClips
     if (plusScore) {
-      await LolUserScore.findOneAndUpdate(
+      await AovUserScore.findOneAndUpdate(
         { user_id: req.user._id },
         {
           $push: { finishClips: clip_id },
@@ -50,7 +50,7 @@ const lolSummitClip = async (req, res = response) => {
     }
 
     // Cập nhật số lượt chơi và trả kết quả
-    updateLolScore(req.user._id, plusScore);
+    updateAovScore(req.user._id, plusScore);
     updatePlayCount(req.user._id, req.user.playCount - 1);
     updatePlayTime(req.user._id, 1);
 
@@ -79,4 +79,4 @@ const getMessage = (plusScore) => {
   }
 };
 
-module.exports = lolSummitClip;
+module.exports = aovSubmitClip;

@@ -19,8 +19,9 @@ const createLolClip = async (req, res = response) => {
       rank_id,
       owner,
     });
+
     const savedLolClip = await newLolClip.save();
-    console.log("Đã thêm 1 aov clip");
+    console.log("Đã thêm 1 lol clip");
 
     res.status(201).json({
       success: true,
